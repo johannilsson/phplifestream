@@ -1,6 +1,12 @@
 <ul class="lifestream">
 <?php foreach ($this->entries as $entry):?>
-    <li class="<?= $entry->code ?>"><a href="<?= $entry->url ?>"><?= $entry->title ?></a> <span class="since"><?= $entry->content_created_at ?></span></li>
+    <li class="<?= $entry->code ?>">
+        <a href="<?= $entry->url ?>"><?= $entry->title ?></a> 
+        <?php if ($entry->display_content):?>
+        <p><?= $entry->content; ?></p>
+        <?php endif;?>
+        <span class="since"><?= $entry->content_created_at ?></span>
+    </li>
 <?php endforeach;?>
 </ul>
 
