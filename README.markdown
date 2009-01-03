@@ -16,7 +16,7 @@ Setup
 
 This is just a simple apache vhost conf, but you get the idea.
 
- <VirtualHost phplifestream>
+  <VirtualHost phplifestream>
          ServerName phplifestream
          DocumentRoot /path/to/phplifestream/public
          ErrorLog /path/to/log/phplifestream-error.log
@@ -27,11 +27,11 @@ This is just a simple apache vhost conf, but you get the idea.
                  Order allow,deny
                  allow from all
          </Directory>
- </VirtualHost>
+  </VirtualHost>
 
 ### Cronjob
 
- */5 * * * * php /path/to/phplifestream/jobs/aggregate.php >> /dev/null
+  */5 * * * * php /path/to/phplifestream/jobs/aggregate.php >> /dev/null
 
 Todo
 ----
