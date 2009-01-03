@@ -1,0 +1,7 @@
+<ul class="lifestream">
+<?php foreach ($this->entries as $entry):?>
+    <li class="<?= $entry->code ?>"><a href="<?= $entry->url ?>"><?= $entry->title ?></a> <span class="since"><?= $entry->content_created_at ?></span></li>
+<?php endforeach;?>
+</ul>
+
+<?= $this->entries ?>

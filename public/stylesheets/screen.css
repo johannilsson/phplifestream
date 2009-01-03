@@ -1,0 +1,49 @@
+body {
+    background-color: #fff;
+    color: #000;
+    
+}
+
+h1 {
+    font-size: 2em;
+    margin: .3em;	
+}
+
+ul.lifestream {
+    list-style: none;
+}
+
+.lifestream a {
+    color: #363636;
+    text-decoration: none;
+}
+
+.lifestream a:hover {
+    color: #000;
+}
+
+.lifestream li {
+    padding: 3px 23px;
+    margin: 1px;
+}
+
+.lifestream li {
+    background-image: url("/images/feed.png");
+    background-position: 3px 3px;
+    background-repeat: no-repeat;
+}
+	
+.lifestream li.twitter {
+	background-color: #7FFFD4;
+    background-image: url("/images/twitter.png");
+}
+
+.lifestream li.lastfm {
+	background-color: #FFB6C1;
+    background-image: url("/images/lastfm.png");
+}
+
+.since {
+    font-size: 0.8em;
+    color: #666;
+}
