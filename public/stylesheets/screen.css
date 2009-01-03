@@ -9,6 +9,10 @@ h1 {
     margin: .3em;	
 }
 
+a {
+    color: #000;	
+}	
+
 ul.lifestream {
     list-style: none;
 }
@@ -56,4 +60,23 @@ ul.lifestream {
 .since {
     font-size: 0.8em;
     color: #666;
+}
+
+div.pagination-control {
+  font-size: .8em;
+  text-align: center;
+    padding: 10px;
+}
+
+div.pagination-control a {
+    text-decoration: none;
+}
+
+div.pagination-control span.item {
+    padding: 5px;
+    border: 1px solid #DEDEDE;
+}
+
+div.pagination-control span.current {
+    border: 1px solid #fff;
 }
