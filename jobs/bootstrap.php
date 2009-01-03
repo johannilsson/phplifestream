@@ -1,7 +1,7 @@
 <?php
 
-if (file_exists('../mainconf.php')) {
-    require '../mainconf.php';
+if (file_exists(dirname(__FILE__) . '/../mainconf.php')) {
+    require dirname(__FILE__) . '/../mainconf.php';
 }
 define('APPLICATION_PATH', dirname(__FILE__) . '/../app');
 defined('ENVIRONMENT')
