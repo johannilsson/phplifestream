@@ -40,6 +40,7 @@ class StreamEntries extends Zend_Db_Table_Abstract
         }
         
         $data['updated_at'] = date('Y-m-d H:i:s');
+
         return parent::update($data, $where);
     }
 }
