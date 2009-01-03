@@ -2,7 +2,7 @@
 
 require_once 'Zend/Controller/Action.php';
  
-class IndexController extends Zend_Controller_Action 
+class StreamsController extends Zend_Controller_Action 
 {
     protected $_streamEntryModel = null;
 
@@ -15,7 +15,7 @@ class IndexController extends Zend_Controller_Action
         return $this->_streamEntryModel; 
     }
 
-    public function indexAction() 
+    public function homeAction() 
     {
         $this->view->entries = $this->_getStreamEntryModel()->fetchEntries($this->_getParam('page', 1));
     }

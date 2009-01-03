@@ -1,9 +1,9 @@
 <?php
 
-if (file_exists(dirname(__FILE__) . '/../mainconf.php')) {
-    require dirname(__FILE__) . '/../mainconf.php';
+if (file_exists(dirname(__FILE__) . '/mainconf.php')) {
+    require dirname(__FILE__) . '/mainconf.php';
 }
-define('APPLICATION_PATH', dirname(__FILE__) . '/../app');
+define('APPLICATION_PATH', dirname(__FILE__));
 defined('ENVIRONMENT')
     or define('ENVIRONMENT', 'production');
 

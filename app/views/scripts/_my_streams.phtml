@@ -1,0 +1,8 @@
+<h3>Follow me on</h3>
+<ul class="lifestream sidebar">
+<?php foreach ($this->entries as $entry): ?>
+    <li class="<?= $entry->code ?>">
+        <a href="<?= $entry->url ?>"><?= $entry->name ?></a>
+    </li>
+<?php endforeach;?>
+</ul>
