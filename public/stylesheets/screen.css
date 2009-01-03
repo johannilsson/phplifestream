@@ -43,6 +43,16 @@ ul.lifestream {
     background-image: url("/images/lastfm.png");
 }
 
+.lifestream li.github {
+    background-color: #E8E8E8;
+    background-image: url("/images/github.png");
+}
+
+.lifestream li.delicious {
+    background-color: #fff;
+    background-image: url("/images/delicious.png");
+}
+
 .since {
     font-size: 0.8em;
     color: #666;
