@@ -31,6 +31,8 @@ This is just a simple apache vhost conf, but you get the idea.
 
 ### Cronjob
 
+Setup the cron job for aggregation 
+
   */5 * * * * php /path/to/phplifestream/jobs/aggregate.php >> /dev/null
 
 Todo
@@ -39,3 +41,9 @@ Todo
 * Replace the aggregation model with service specific aggregators
 * Tags
 * Comments
+
+Credits
+-------
+
+* Photo icon by Mark James <http://www.famfamfam.com/lab/icons/silk/>
+* Zend Framework

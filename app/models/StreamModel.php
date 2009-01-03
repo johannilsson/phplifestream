@@ -2,22 +2,22 @@
 
 require_once 'Db/Streams.php';
 
-class StreamAggregator 
+class StreamModel
 {
-    private $_streamsDb = null;
+    private $_dbTable = null;
 
-    public function getStreamsDb()
+    public function getDbTable()
     {
         if (null === $this->_streamsDb) {
-            $this->_streamsDb = new Streams();
+            $this->_dbTable = new Streams();
         }
-        return $this->_streamsDb;
+        return $this->_dbTable;
     }
 
     public function aggregate()
     {
         $entries = array();
-        foreach ($this->getStreamsDb()->fetchAll() as $streamRow) {
+        foreach ($this->getDbTable()->fetchAll() as $streamRow) {
             $feed = Zend_Feed::import($streamRow->url);
 
             $entry = array();
@@ -52,6 +52,15 @@ class StreamAggregator
         return $entries;
     }
 
+    public function fetchEntries()
+    {
+        $select = $this->getDbTable()->select();
+        $entries = $this->getDbTable()->fetchAll(
+            $select
+        );
+        return $entries;
+    }
+    
     private function _getDate($date)
     {
         try {

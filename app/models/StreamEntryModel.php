@@ -2,24 +2,24 @@
 
 require_once 'Db/StreamEntries.php';
 
-class Stream
+class StreamEntryModel
 {
     const ITEM_COUNT_PER_PAGE = 20;
     const PAGE_RANGE = 10;
 
-    private $_streamEntriesDb = null;
+    private $_dbTable = null;
 
-    public function getStreamEntriesDb()
+    public function getDbTable()
     {
-        if (null === $this->_streamEntriesDb) {
-            $this->_streamEntriesDb = new StreamEntries();
+        if (null === $this->_dbTable) {
+            $this->_dbTable = new StreamEntries();
         }
-        return $this->_streamEntriesDb;
+        return $this->_dbTable;
     }
 
     public function add(array $data) 
     {
-        $db = $this->getStreamEntriesDb();
+        $db = $this->getDbTable();
 
         $entry = $db->fetchRow($db->select()->where('content_id_hash = ?', $data['content_id_hash']));
         if (null == $entry) {
@@ -32,7 +32,7 @@ class Stream
 
     public function fetchEntries($page = null)
     {
-        $select = $this->getStreamEntriesDb()->select()
+        $select = $this->getDbTable()->select()
             ->setIntegrityCheck(false)
             ->from('stream_entries')
             ->join('streams', 'streams.id = stream_entries.stream_id', array('code', 'display_content'))
@@ -40,8 +40,8 @@ class Stream
             ->order('content_created_at desc')
             ->order('stream_entries.created_at desc');
 
-        $entries = $this->getStreamEntriesDb()->fetchAll(
-          $select
+        $entries = $this->getDbTable()->fetchAll(
+            $select
         );
 
         if (null !== $page) {
