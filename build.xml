@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="phplifestream" default="dist" basedir=".">
+    <description>
+        phplifestream build file
+    </description>
+
+    <property name="dist.dir" location="dist"/>
+
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <target name="dist" depends="init"
+        description="generate the distribution" >
+
+        <filter filtersfile="deploy_env.properties"/>
+        <copy todir="${dist.dir}/app" filtering="true">
+            <fileset dir="application">
+            </fileset>
+        </copy>
+        <copy todir="${dist.dir}/public">
+            <fileset dir="public">
+            </fileset>
+        </copy>
+
+    </target>
+
+    <target name="clean"
+        description="clean up" >
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <target name="package" depends="clean,dist"
+        description="package" >
+        <tar longfile="gnu"
+             destfile="${dist.dir}/phplifestream.tar" >
+            <tarfileset dir="${dist.dir}">
+                <include name="**/**"/>
+            </tarfileset>
+        </tar>
+        <gzip zipfile="${dist.dir}/phplifestream.tar.gz" src="${dist.dir}/phplifestream.tar"/>
+    </target>
+</project>
+
