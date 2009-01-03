@@ -36,6 +36,15 @@ class StreamAggregator
                     $entry['content_id'] = $item->guid;
                     $entry['content_created_at'] = $this->_getDate($item->pubDate);
                 }
+
+                // Make sure we have both created and updated with something
+                if ($entry['content_updated_at'] == '') {
+                    $entry['content_updated_at'] = $entry['content_created_at'];
+                }
+                if ($entry['content_created_at'] == '') {
+                    $entry['content_created_at'] = $entry['content_updated_at'];
+                }
+
                 $entry['content_id_hash'] = md5($entry['content_id']);
                 $entries[] = $entry;
             }

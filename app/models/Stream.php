@@ -25,7 +25,7 @@ class Stream
         if (null == $entry) {
             $id = $db->insert($data);
         } else {
-            $where = $db->getAdapter()->quoteInto('content_id_hash = ?', $id);
+            $where = $db->getAdapter()->quoteInto('content_id_hash = ?', $data['content_id_hash']);
             $db->update($data, $where);            
         }
     }
@@ -36,8 +36,8 @@ class Stream
             ->setIntegrityCheck(false)
             ->from('stream_entries')
             ->join('streams', 'streams.id = stream_entries.stream_id', array('code', 'display_content'))
-            ->order('content_created_at desc')
             ->order('content_updated_at desc')
+            ->order('content_created_at desc')
             ->order('stream_entries.created_at desc');
 
         $entries = $this->getStreamEntriesDb()->fetchAll(
