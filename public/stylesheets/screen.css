@@ -6,8 +6,17 @@ body {
 
 h1 {
     font-size: 2em;
-    margin: .3em;	
+    margin: .3em 0;	
 }
+h2 {
+    font-size: 1.7em;
+    margin: .3em 0;   
+}
+h3 {
+    font-size: 1.3em;
+    margin: .3em 0;   
+}
+
 
 a {
     color: #000;	
@@ -55,6 +64,22 @@ ul.lifestream {
 .lifestream li.delicious {
     background-color: #fff;
     background-image: url("/images/delicious.png");
+}
+
+.lifestream li.flickr {
+    background-color: #FFE4E1;
+    background-image: url("/images/flickr.png");
+}
+
+.lifestream li.photo {
+    background-color: #fff;
+    background-image: url("/images/photo.png");
+}
+
+
+
+.sidebar li {
+    background-color: #fff !important;	
 }
 
 .since {
