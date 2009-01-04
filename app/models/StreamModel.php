@@ -4,74 +4,60 @@ require_once 'Db/Streams.php';
 
 class StreamModel
 {
+    const ITEM_COUNT_PER_PAGE = 20;
+    const PAGE_RANGE = 10;
+
     private $_dbTable = null;
 
     public function getDbTable()
     {
-        if (null === $this->_streamsDb) {
+        if (null === $this->_dbTable) {
             $this->_dbTable = new Streams();
         }
         return $this->_dbTable;
     }
 
-    public function aggregate()
+    public function add(array $data) 
     {
-        $entries = array();
-        foreach ($this->getDbTable()->fetchAll() as $streamRow) {
-            try
-            {
-                $feed = Zend_Feed::import($streamRow->url);
-    
-                $entry = array();
-                foreach ($feed as $item) {
-                    $entry['stream_id'] = $streamRow->id;
-                    $entry['title'] = $item->title;
-                    $entry['url'] = $item->link('alternate');
-                    $entry['content_updated_at'] = $this->_getDate($item->updated);
-                    $entry['content'] = $item->content;
-                    if ($feed instanceof Zend_Feed_Atom) {
-                        $entry['summary'] = $item->summary;
-                        $entry['content_id'] = $item->id;
-                        $entry['content_created_at'] = $this->_getDate($item->published);
-                    } else {
-                        $entry['summary'] = $item->description;
-                        $entry['content_id'] = $item->guid;
-                        $entry['content_created_at'] = $this->_getDate($item->pubDate);
-                    }
-    
-                    // Make sure we have both created and updated with something
-                    if ($entry['content_updated_at'] == '') {
-                        $entry['content_updated_at'] = $entry['content_created_at'];
-                    }
-                    if ($entry['content_created_at'] == '') {
-                        $entry['content_created_at'] = $entry['content_updated_at'];
-                    }
-    
-                    $entry['content_id_hash'] = md5($entry['content_id']);
-                    $entries[] = $entry;
-                }                 
-            } catch (Zend_Http_Client_Adapter_Exception $e) {
-                ; // Silent for now...
-            }
+        $db = $this->getDbTable();
+
+        $entry = $db->fetchRow($db->select()->where('unique_id = ?', $data['unique_id']));
+        if (null == $entry) {
+            $id = $db->insert($data);
+        } else {
+            $where = $db->getAdapter()->quoteInto('unique_id = ?', $data['unique_id']);
+            $db->update($data, $where);            
         }
-        return $entries;
     }
 
-    public function fetchEntries()
+    public function fetchEntries($page = null)
     {
-        $select = $this->getDbTable()->select();
+        $select = $this->getDbTable()->select()
+            ->setIntegrityCheck(false)
+            ->from('streams')
+            ->join('services', 'services.id = streams.service_id', array('code', 'display_content'))
+            ->order('content_updated_at desc')
+            ->order('content_created_at desc')
+            ->order('streams.created_at desc');
+
         $entries = $this->getDbTable()->fetchAll(
             $select
         );
+
+        if (null !== $page) {
+            $entries = $this->_paginateResult($entries, $page);
+        }
+
         return $entries;
     }
-    
-    private function _getDate($date)
+
+    private function _paginateResult($entries, $page)
     {
-        try {
-            return new Zend_Date($date);
-        } catch (Zend_Date_Exception $e) {
-            return null;   
-        }
+        $entries  = Zend_Paginator::factory($entries);
+        $entries->setItemCountPerPage(self::ITEM_COUNT_PER_PAGE)
+            ->setPageRange(self::PAGE_RANGE)
+            ->setCurrentPageNumber($page);    
+        return $entries;
     }
+
 }

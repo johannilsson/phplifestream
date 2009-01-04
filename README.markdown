@@ -1,13 +1,16 @@
 PHP Lifestream
 ==============
 
-Introduction
------------- 
-
 Aggregates feeds and combines them to one.
 
 * Zend Framework
 * Atom and RSS support
+* Easy to add new aggregators
+
+Changelog
+---------
+
+Concider it unstable and to break for every commit.
 
 Setup
 -----

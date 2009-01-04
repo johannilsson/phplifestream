@@ -10,9 +10,9 @@ class Zend_View_Helper_MyStreams
 
     public function myStreams()
     {
-        require_once APPLICATION_PATH . '/models/StreamModel.php';
-        $streamModel = new StreamModel();
-        $params = array('entries' => $streamModel->fetchEntries());
+        require_once APPLICATION_PATH . '/models/ServiceModel.php';
+        $serviceModel = new ServiceModel();
+        $params = array('entries' => $serviceModel->fetchEntries());
         return $this->view->partial('_my_streams.phtml', $params);
     }
 

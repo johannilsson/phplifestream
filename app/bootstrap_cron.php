@@ -8,6 +8,7 @@ defined('ENVIRONMENT')
     or define('ENVIRONMENT', 'production');
 
 $includePath = array(
+    dirname(__FILE__) . '/../library',
     get_include_path(),
 );
 set_include_path(implode(PATH_SEPARATOR, $includePath));
