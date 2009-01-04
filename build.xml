@@ -4,6 +4,7 @@
         phplifestream build file
     </description>
 
+    <property name="name" value="phplifestream"/>
     <property name="dist.dir" location="dist"/>
 
     <target name="init">
@@ -23,7 +24,10 @@
             <fileset dir="public">
             </fileset>
         </copy>
-
+        <copy todir="${dist.dir}/library">
+            <fileset dir="library">
+            </fileset>
+        </copy>
     </target>
 
     <target name="clean"
@@ -34,12 +38,13 @@
     <target name="package" depends="clean,dist"
         description="package" >
         <tar longfile="gnu"
-             destfile="${dist.dir}/phplifestream.tar" >
+             destfile="${dist.dir}/${name}.tar" >
             <tarfileset dir="${dist.dir}">
                 <include name="**/**"/>
             </tarfileset>
         </tar>
-        <gzip zipfile="${dist.dir}/phplifestream.tar.gz" src="${dist.dir}/phplifestream.tar"/>
+        <gzip zipfile="${dist.dir}/${name}.tar.gz" src="${dist.dir}/${name}.tar"/>
+        <delete file="${dist.dir}/${name}.tar"/>
     </target>
 </project>
 
