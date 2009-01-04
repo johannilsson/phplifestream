@@ -54,7 +54,7 @@ class Ls_Aggregator_Adapter_Feed implements Ls_Aggregator_Adapter_Interface
                 if ($entry->getContentCreatedAt() == '') {
                     $entry->setContentCreatedAt($entry->getContentUpdatedAt());
                 }
-
+                
                 $entries[] = $entry;
             }                 
         } catch (Zend_Http_Client_Adapter_Exception $e) {
@@ -63,10 +63,18 @@ class Ls_Aggregator_Adapter_Feed implements Ls_Aggregator_Adapter_Interface
         return $entries;
     }
 
+    /**
+     * Create a date objects and converts the passed time to UTC.
+     * 
+     * @param $date
+     * @return Zend_Date
+     */
     private function _createDate($date)
     {
         try {
-            return new Zend_Date($date);
+            $date = new Zend_Date($date);
+            $date->setTimezone('UTC');
+            return $date;
         } catch (Zend_Date_Exception $e) {
             return null;   
         }
