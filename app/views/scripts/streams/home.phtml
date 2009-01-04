@@ -5,7 +5,7 @@
         <?php if ($entry->display_content):?>
         <p><?= $entry->content; ?></p>
         <?php endif;?>
-        <span class="since"><?= $entry->content_created_at ?></span>
+        <span class="since"><?= $this->date($entry->content_created_at)->get(Zend_Date::RFC_850) ?></span>
     </li>
 <?php endforeach;?>
 </ul>
