@@ -16,7 +16,7 @@
 
         <filter filtersfile="deploy_env.properties"/>
         <copy todir="${dist.dir}/app" filtering="true">
-            <fileset dir="application">
+            <fileset dir="app">
             </fileset>
         </copy>
         <copy todir="${dist.dir}/public">
