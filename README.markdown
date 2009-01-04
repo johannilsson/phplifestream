@@ -3,9 +3,14 @@ PHP Lifestream
 
 Aggregates feeds and combines them to one.
 
-* Zend Framework
+* Built with Zend Framework
+* Easy to extends with new aggregators and services
 * Atom and RSS support
-* Easy to add new aggregators
+
+Live example is availabe at <http://www.johannilsson.me>
+
+Contact me on Twitter if you have any suggestions, like it or dont like it 
+<http://twitter.com/johanjohanjohan>
 
 Changelog
 ---------
@@ -15,33 +20,26 @@ Concider it unstable and to break for every commit.
 Setup
 -----
 
-### Apache conf
+### Webserver
 
-This is just a simple apache vhost conf, but you get the idea.
+Point the webservers webroot to the public directory. 
 
-  <VirtualHost phplifestream>
-         ServerName phplifestream
-         DocumentRoot /path/to/phplifestream/public
-         ErrorLog /path/to/log/phplifestream-error.log
-         CustomLog /path/to/log/phplifestream-access.log combined
-         <Directory /path/to/log/phplifestream/public>
-                 Options Indexes FollowSymLinks MultiViews
-                 AllowOverride All
-                 Order allow,deny
-                 allow from all
-         </Directory>
-  </VirtualHost>
+Refer to the Zend documentation if running another server than apache what to 
+replace the .htaccess file with.
 
 ### Cronjob
 
-Setup the cron job for aggregation 
+Setup the cron job for aggregation, the example will run every 5 minute change it
+to whatever suits you best.
 
-  */5 * * * * php /path/to/phplifestream/jobs/aggregate.php >> /dev/null
+<pre>
+*/5 * * * * php /path/to/app/jobs/aggregate.php >> /path/to/cron_log
+</pre>
 
 Todo
 ----
 
-* Replace the aggregation model with service specific aggregators
+* Ideas?
 * Tags
 * Comments
 
