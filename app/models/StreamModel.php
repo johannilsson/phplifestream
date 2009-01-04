@@ -4,7 +4,7 @@ require_once 'Db/Streams.php';
 
 class StreamModel
 {
-    const ITEM_COUNT_PER_PAGE = 20;
+    const ITEM_COUNT_PER_PAGE = 50;
     const PAGE_RANGE = 10;
 
     private $_dbTable = null;

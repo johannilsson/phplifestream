@@ -19,8 +19,18 @@ h3 {
 
 
 a {
-    color: #000;	
-}	
+    color: #000;
+    text-decoration: none;
+}
+a:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+
+h1 a {
+    text-decoration: none;	
+}
 
 ul.lifestream {
     list-style: none;
@@ -28,6 +38,8 @@ ul.lifestream {
 
 .lifestream a {
     color: #363636;
+}
+.lifestream a:hover {
     text-decoration: none;
 }
 
@@ -76,10 +88,11 @@ ul.lifestream {
     background-image: url("/images/photo.png");
 }
 
-
-
 .sidebar li {
     background-color: #fff !important;	
+}
+.sidebar li a:hover {
+    text-decoration: underline;	
 }
 
 .since {
