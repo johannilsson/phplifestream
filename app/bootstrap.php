@@ -17,5 +17,7 @@ date_default_timezone_set('UTC');
 
 $dsConfig = new Zend_Config_Ini(APPLICATION_PATH . '/conf/db.ini', ENVIRONMENT);
 $db = Zend_Db::factory($dsConfig->db);
+//$db->query('SET NAMES UTF8');
 Zend_Db_Table_Abstract::setDefaultAdapter($db);
 Zend_Registry::set('db', $db);
+
