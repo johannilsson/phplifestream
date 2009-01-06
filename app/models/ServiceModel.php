@@ -16,6 +16,8 @@ class ServiceModel
 
     public function aggregate()
     {
+        $logger = Zend_Registry::get('logger');
+
         $services = $this->getDbTable()->fetchAll(
             $this->getDbTable()
                 ->select()
@@ -24,6 +26,8 @@ class ServiceModel
 
         $arrEntries = array();
         foreach ($services as $service) {
+            $logger->log('Aggregating ' . $service->name, Zend_Log::INFO);
+
             try {
                 $options = $this->fetchServiceOptions($service->id);
                 $aggregator = new Ls_Aggregator(array($service->aggregator, $options));
@@ -39,7 +43,8 @@ class ServiceModel
                 $service->aggregated_at = date('Y-m-d, H:i:s', time());
                 $service->save();
             } catch (Exception $e) {
-                ; // TODO: Silent for now, add logger
+                $logger->log('Got Exception ' . $e->getMessage() 
+                    . '(' . get_class($e) . ')', Zend_Log::ALERT);
             }
         }
         return $arrEntries;
