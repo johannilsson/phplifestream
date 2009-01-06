@@ -16,23 +16,31 @@ class ServiceModel
 
     public function aggregate()
     {
-        $services = $this->getDbTable()->fetchAll();
+        $services = $this->getDbTable()->fetchAll(
+            $this->getDbTable()
+                ->select()
+                ->where('aggregate = ?', true)
+        );
 
         $arrEntries = array();
         foreach ($services as $service) {
-            $options = $this->fetchServiceOptions($service->id);
-            $aggregatorName = ucfirst(strtolower($service->aggregator));
-            $aggregator = new Ls_Aggregator(array($aggregatorName, $options));
+            try {
+                $options = $this->fetchServiceOptions($service->id);
+                $aggregator = new Ls_Aggregator(array($service->aggregator, $options));
 
-            $entries = $aggregator->fetchEntries();
-            foreach ($entries as $entry) {
-                $arrEntry = $entry->toArray();
-                $arrEntry['service_id'] = $service->id;
-                $arrEntries[] = $arrEntry;
+                $entries = $aggregator->fetchEntries();
+                foreach ($entries as $entry) {
+                    $arrEntry = $entry->toArray();
+                    $arrEntry['service_id'] = $service->id;
+                    $arrEntry['unique_id'] = sha1($entry->getUniqueId() . $service->id);
+                    $arrEntries[] = $arrEntry;
+                }
+
+                $service->aggregated_at = date('Y-m-d, H:i:s', time());
+                $service->save();
+            } catch (Exception $e) {
+                ; // TODO: Silent for now, add logger
             }
-
-            $service->aggregated_at = date('Y-m-d, H:i:s', time());
-            $service->save();
         }
         return $arrEntries;
     }
@@ -53,7 +61,7 @@ class ServiceModel
 
     public function fetchEntries()
     {
-        $select = $this->getDbTable()->select();
+        $select = $this->getDbTable()->select()->order('name');
         $entries = $this->getDbTable()->fetchAll(
             $select
         );
