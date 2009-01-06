@@ -19,14 +19,17 @@ class StreamModel
 
     public function add(array $data) 
     {
+        $logger = Zend_Registry::get('logger');
         $db = $this->getDbTable();
 
         $entry = $db->fetchRow($db->select()->where('unique_id = ?', $data['unique_id']));
         if (null == $entry) {
             $id = $db->insert($data);
+            $logger->debug('Added entry ' . $data['unique_id'] . '.');
         } else {
             $where = $db->getAdapter()->quoteInto('unique_id = ?', $data['unique_id']);
-            $db->update($data, $where);            
+            $db->update($data, $where);
+            $logger->debug('Updated entry ' . $data['unique_id'] . '.');
         }
     }
 

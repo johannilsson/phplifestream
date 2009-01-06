@@ -21,3 +21,7 @@ $db = Zend_Db::factory($dsConfig->db);
 Zend_Db_Table_Abstract::setDefaultAdapter($db);
 Zend_Registry::set('db', $db);
 
+$writer = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/../log/app_log');
+$logger = new Zend_Log($writer);
+Zend_Registry::set('logger', $logger);
+

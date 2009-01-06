@@ -26,7 +26,7 @@ class ServiceModel
 
         $arrEntries = array();
         foreach ($services as $service) {
-            $logger->log('Aggregating ' . $service->name, Zend_Log::INFO);
+            $logger->info('Aggregating ' . $service->name . '.');
 
             try {
                 $options = $this->fetchServiceOptions($service->id);
@@ -43,10 +43,11 @@ class ServiceModel
                 $service->aggregated_at = date('Y-m-d, H:i:s', time());
                 $service->save();
             } catch (Exception $e) {
-                $logger->log('Got Exception ' . $e->getMessage() 
-                    . '(' . get_class($e) . ')', Zend_Log::ALERT);
+                $logger->alert('Got Exception ' . $e->getMessage() 
+                    . '(' . get_class($e) . ').');
             }
         }
+        $logger->debug('Got ' . count($arrEntries) . ' entries.');
         return $arrEntries;
     }
 
