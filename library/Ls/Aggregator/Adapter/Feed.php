@@ -32,7 +32,7 @@ class Ls_Aggregator_Adapter_Feed implements Ls_Aggregator_Adapter_Interface
                 $entries[] = $this->_createEntry($item);
             }                 
         } catch (Zend_Exception $e) {
-            ; // TODO: Add logge, silent for now... 
+            throw new Ls_Aggregator_Exception('Failed to aggregate, ' . $e->getMessage());
         }
         return $entries;
     }
@@ -74,11 +74,9 @@ class Ls_Aggregator_Adapter_Feed implements Ls_Aggregator_Adapter_Interface
      */
     private function _createDate($date, $part)
     {
-        echo $date . "\n";
         try {
             $date = new Zend_Date($date, $part);
             $date->setTimezone('UTC');
-            echo $date . "\n";
             return $date;
         } catch (Zend_Date_Exception $e) {
             return null;   
