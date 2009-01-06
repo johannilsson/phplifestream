@@ -46,6 +46,7 @@ CREATE TABLE `streams` (
   `content` text default NULL,
   `content_created_at` DATETIME default NULL,
   `content_updated_at` DATETIME default NULL,
+  `content_unique_id` varchar(255) NOT NULL,
   `service_id` int(11) NOT NULL,
   `created_at` DATETIME default NULL,
   `updated_at` DATETIME default NULL,
