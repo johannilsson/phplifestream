@@ -17,7 +17,7 @@ $serviceModel = new ServiceModel();
 $streamModel = new StreamModel();
 
 foreach ($serviceModel->aggregate() as $entry) {
-    $streamModel->add($entry);
+    $streamModel->import($entry);
 }
 
 $logger->info('Finished aggregate job');

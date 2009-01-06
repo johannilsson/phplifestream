@@ -36,7 +36,8 @@ class ServiceModel
                 foreach ($entries as $entry) {
                     $arrEntry = $entry->toArray();
                     $arrEntry['service_id'] = $service->id;
-                    $arrEntry['unique_id'] = sha1($entry->getUniqueId() . $service->id);
+                    $arrEntry['content_unique_id'] = $entry->getUniqueId();
+                    unset($arrEntry['unique_id']);
                     $arrEntries[] = $arrEntry;
                 }
 
