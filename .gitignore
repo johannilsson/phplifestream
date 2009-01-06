@@ -1,5 +1,5 @@
 tmp/*
-log/*
+log/*_log
 .buildpath
 .project
 .settings
