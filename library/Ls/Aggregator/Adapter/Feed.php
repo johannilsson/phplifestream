@@ -28,39 +28,42 @@ class Ls_Aggregator_Adapter_Feed implements Ls_Aggregator_Adapter_Interface
         try
         {
             $feed = Zend_Feed::import($this->_url);
-
-            $date = new Zend_Date();
-
             foreach ($feed as $item) {
-                $entry = new Ls_Aggregator_Entry();
-                $entry->setUrl($item->link('alternate'));
-                $entry->setUniqueId(md5($entry->getUrl()));
-                $entry->setTitle($item->title);
-                $entry->setContentUpdatedAt($this->_createDate($item->updated));
-                $entry->setContent($item->content);
-
-                if ($feed instanceof Zend_Feed_Atom) {
-                    $entry->setSummary($item->summary);
-                    $entry->setContentCreatedAt($this->_createDate($item->published));
-                } else {
-                    $entry->setSummary($item->description);
-                    $entry->setContentCreatedAt($this->_createDate($item->pubDate));
-                }
-
-                // Make sure we have both created and updated with something
-                if ($entry->getContentUpdatedAt() == '') {
-                    $entry->setContentUpdatedAt($entry->getContentCreatedAt());
-                }
-                if ($entry->getContentCreatedAt() == '') {
-                    $entry->setContentCreatedAt($entry->getContentUpdatedAt());
-                }
-                
-                $entries[] = $entry;
+                $entries[] = $this->_createEntry($item);
             }                 
-        } catch (Zend_Http_Client_Adapter_Exception $e) {
-            ; // Silent for now...
+        } catch (Zend_Exception $e) {
+            ; // TODO: Add logge, silent for now... 
         }
         return $entries;
+    }
+
+    protected function _createEntry(Zend_Feed_Entry_Abstract $item)
+    {
+        $entry = new Ls_Aggregator_Entry();
+        $entry->setUrl($item->link('alternate'));
+        $entry->setTitle($item->title);
+        $entry->setContent($item->content);
+
+        if ($item instanceof Zend_Feed_Entry_Atom) {
+            $entry->setUniqueId($item->id);
+            $entry->setSummary($item->summary);
+            $entry->setContentCreatedAt($this->_createDate($item->published, Zend_Date::ATOM));
+            $entry->setContentUpdatedAt($this->_createDate($item->updated, Zend_Date::ATOM));
+        } else {
+            $entry->setUniqueId($item->guid);
+            $entry->setSummary($item->description);
+            $entry->setContentCreatedAt($this->_createDate($item->pubDate, Zend_Date::RSS));
+            $entry->setContentUpdatedAt($this->_createDate($item->updated, Zend_Date::RSS));
+        }
+
+        // Make sure we have both created and updated with something
+        if ($entry->getContentUpdatedAt() == '') {
+            $entry->setContentUpdatedAt($entry->getContentCreatedAt());
+        }
+        if ($entry->getContentCreatedAt() == '') {
+            $entry->setContentCreatedAt($entry->getContentUpdatedAt());
+        }
+        return $entry;
     }
 
     /**
@@ -69,11 +72,13 @@ class Ls_Aggregator_Adapter_Feed implements Ls_Aggregator_Adapter_Interface
      * @param $date
      * @return Zend_Date
      */
-    private function _createDate($date)
+    private function _createDate($date, $part)
     {
+        echo $date . "\n";
         try {
-            $date = new Zend_Date($date);
+            $date = new Zend_Date($date, $part);
             $date->setTimezone('UTC');
+            echo $date . "\n";
             return $date;
         } catch (Zend_Date_Exception $e) {
             return null;   
