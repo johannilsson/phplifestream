@@ -57,12 +57,18 @@ class Ls_Aggregator_Adapter_Feed implements Ls_Aggregator_Adapter_Interface
         }
 
         // Make sure we have both created and updated with something
+        if ($entry->getContentUpdatedAt() == '' 
+                && $entry->getContentCreatedAt() == '') {
+            $entry->setContentUpdatedAt(Zend_Date::now());
+            $entry->setContentCreatedAt(Zend_Date::now());
+        }
         if ($entry->getContentUpdatedAt() == '') {
             $entry->setContentUpdatedAt($entry->getContentCreatedAt());
         }
         if ($entry->getContentCreatedAt() == '') {
             $entry->setContentCreatedAt($entry->getContentUpdatedAt());
         }
+
         return $entry;
     }
 
@@ -72,14 +78,22 @@ class Ls_Aggregator_Adapter_Feed implements Ls_Aggregator_Adapter_Interface
      * @param $date
      * @return Zend_Date
      */
-    private function _createDate($date, $part)
+    private function _createDate($originalDate, $part)
     {
-        try {
-            $date = new Zend_Date($date, $part);
-            $date->setTimezone('UTC');
-            return $date;
-        } catch (Zend_Date_Exception $e) {
-            return null;   
+         $date = null;
+        try
+        {
+            try {
+                $date = new Zend_Date($originalDate, $part);
+                $date->setTimezone('UTC');
+            } catch (Zend_Date_Exception $e) {
+                $date = new Zend_Date(strtotime($originalDate), Zend_Date::TIMESTAMP);
+                $date->setTimezone('UTC');
+            }
         }
+        catch (Exception $e) {
+            ;
+        }
+        return $date;
     }
 }
