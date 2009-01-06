@@ -17,6 +17,30 @@ h3 {
     margin: .3em 0;   
 }
 
+table {
+	border: 1px solid #E0E0E0;   
+}
+
+tr {
+    margin: 1px;	
+}
+
+tr {
+    border-bottom: 1px solid #E0E0E0;   
+}
+
+td {
+	padding: .5em;
+    border-right: 1px solid #E0E0E0;   
+}
+	
+th {
+    font-weight: bold;
+    padding: .5em;
+    margin: 1px;
+    background-color: #E0E0E0;	
+}
+
 a {
     color: #000;
     text-decoration: none;
@@ -26,10 +50,10 @@ a:hover {
     text-decoration: underline;
 }
 
-
 h1 a {
     text-decoration: none;	
 }
+
 
 ul.lifestream {
     list-style: none;
@@ -122,4 +146,9 @@ div.pagination-control span.item {
 
 div.pagination-control span.current {
     border: 1px solid #fff;
+}
+
+.pie_chart, .pie_table {
+    float: left;
+    margin-right: 0.8em;
 }

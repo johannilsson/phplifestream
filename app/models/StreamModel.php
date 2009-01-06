@@ -83,4 +83,29 @@ class StreamModel
         return $entries;
     }
 
+    public function fetchEntriesPerService()
+    {
+        $total = $this->getDbTable()->fetchRow(
+            $this->getDbTable()->select()->from('streams', array('total' => 'COUNT(*)'))
+        );
+        $total = $total->total;
+
+        $select = $this->getDbTable()->select()
+            ->setIntegrityCheck(false)
+            ->from('services', array('name'))
+            ->join('streams', 'services.id = streams.service_id',
+                array('entries_per_service' => 'COUNT(*)'))
+            ->group('streams.service_id');
+
+        $entries = $this->getDbTable()->fetchAll(
+            $select
+        );
+
+        $stats = array();
+        foreach ($entries as $entry) {
+            $percent = round($entry->entries_per_service / $total * 100, 2);
+            $stats[$entry->name] = $percent;
+        }
+        return $stats;
+    }
 }
