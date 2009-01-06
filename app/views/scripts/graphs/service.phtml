@@ -1,0 +1,17 @@
+<div class="pie_chart">
+    <img src="<?= $this->pieChart($this->entries, 500, 200) ?>" alt="Pie Chart" />
+</div>
+<div class="pie_table">
+    <table>
+        <tr>
+            <th>Service Name</th>
+            <th>Percentage</th>
+        </tr>
+        <?php foreach ($this->entries as $service => $value): ?>
+        <tr>
+            <td><?= $service?></td>
+            <td><?= $value?>%</td>
+        </tr>
+        <?php endforeach;?>
+    </table>
+</div>
