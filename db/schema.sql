@@ -4,8 +4,8 @@ USE lifestream
 
 SET FOREIGN_KEY_CHECKS=0;
 
-DROP TABLE IF EXISTS _VERSION_1_0_0;
-CREATE TABLE `_VERSION_1_0_0` (
+DROP TABLE IF EXISTS _VERSION_1_0_1;
+CREATE TABLE `_VERSION_1_0_1` (
   `dummy` varchar(1) default NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -15,7 +15,8 @@ CREATE TABLE `services` (
   `code` varchar(60) default NULL,
   `name` varchar(255) default NULL,
   `aggregator` varchar(50) NOT NULL,
-  `display_content` int(11) default 0,
+  `aggregate` tinyint(1) default 1,
+  `display_content` tinyint(1) default 0,
   `url` varchar(255) NOT NULL,
   `aggregated_at` DATETIME default NULL,
   `created_at` DATETIME default NULL,
@@ -38,7 +39,7 @@ CREATE TABLE `service_options` (
 DROP TABLE IF EXISTS streams;
 CREATE TABLE `streams` (
   `id` int(11) NOT NULL auto_increment,
-  `unique_id` varchar(32) NOT NULL,
+  `unique_id` varchar(40) NOT NULL,
   `url` varchar(255) default NULL,
   `title` varchar(255) default NULL,
   `summary` text default NULL,
