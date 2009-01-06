@@ -17,6 +17,11 @@ Changelog
 
 Concider it unstable and to break for every commit.
 
+* Since commit 52a208dcae4e3d7b526d462c655054a0c0c507fc the schema was updated
+  please run db/migrate/1.0.1/up.sql to migrate to the latest schema. Also changed
+  to use sha1 instead of md5 when calculating the unique_id so you might want to
+  re run aggregation.
+
 Setup
 -----
 
