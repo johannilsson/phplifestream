@@ -22,8 +22,9 @@ class Zend_View_Helper_Date
      */
     public function date($date)
     {
+        $time = strtotime($date);
         $locale = new Zend_Locale();
-        $date = new Zend_Date($date, null, $locale);
+        $date = new Zend_Date($time, Zend_Date::TIMESTAMP, $locale);
         return $date;
     }
 }
