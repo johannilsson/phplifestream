@@ -1,2 +1,9 @@
 tmp/*
 log/*
+.buildpath
+.project
+.settings
+deploy_env.properties
+dist
+phplifestream-conf.php
+
