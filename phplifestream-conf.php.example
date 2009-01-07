@@ -1,0 +1,11 @@
+<?php
+$includePath = array(
+	  // The path to zend framework
+    '/path/to/zend/framework',
+    get_include_path(),
+);
+set_include_path(implode(PATH_SEPARATOR, $includePath));
+// Define environment could be either development or production
+// If not set it defaults to development
+define('ENVIRONMENT', 'development');
+

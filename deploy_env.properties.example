@@ -1,0 +1,12 @@
+;
+; Properties in this files will be used by the ant script build.xml to replace
+; values for the production environment in the app/conf directory.
+;
+
+;
+; Database Settings
+;
+db.params.host     = 
+db.params.username = 
+db.params.password = 
+db.params.dbname   = 
