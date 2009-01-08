@@ -111,6 +111,12 @@ ul.lifestream {
     background-image: url("/images/googlereader.png");
 }
 
+.lifestream li.tumblr {
+    background-color: #fff;
+    background-image: url("/images/tumblr.gif");
+}
+
+
 
 .lifestream li.photo {
     background-color: #fff;
