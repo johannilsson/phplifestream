@@ -20,7 +20,7 @@ class Zend_View_Helper_Date
      * @param  string $date
      * @return string
      */
-    public function date($date)
+    public function date($date = "now")
     {
         $time = strtotime($date);
         $locale = new Zend_Locale();
