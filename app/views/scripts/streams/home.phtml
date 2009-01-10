@@ -5,7 +5,10 @@
         <?php if ($entry->display_content):?>
         <p><?= $entry->content; ?></p>
         <?php endif;?>
-        <span class="since"><?= $this->date($entry->content_created_at)->get(Zend_Date::RFC_850) ?></span>
+        <?php $date = $this->date($entry->content_created_at)?>
+        <span class="since" title="<?= $date->get(Zend_Date::RFC_850)?>">
+            <?= $this->humanTimeSince($date)?> ago
+        </span>
     </li>
 <?php endforeach;?>
 </ul>
