@@ -10,3 +10,9 @@ db.params.host     =
 db.params.username = 
 db.params.password = 
 db.params.dbname   = 
+
+;
+; Auth settings
+;
+auth.identities.username1 = 
+auth.identities.username1.openIdIdentity = 
