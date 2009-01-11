@@ -15,9 +15,21 @@ class StreamsController extends Zend_Controller_Action
         return $this->_streamEntryModel; 
     }
 
+    public function indexAction() 
+    {
+        $this->_redirect($this->_helper->url('list', 'streams'));
+    }
+
+    /**
+     * Keep this action for legacy a while.
+     */ 
     public function homeAction() 
+    {
+        $this->_redirect($this->_helper->url('list', 'streams'));
+    }
+
+    public function listAction() 
     {
         $this->view->entries = $this->_getStreamModel()->fetchEntries($this->_getParam('page', 1));
     }
-
 } 
