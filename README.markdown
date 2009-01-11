@@ -61,37 +61,8 @@ in the include path for an easy way to set environment.
 
 ### Add Feeds
 
-Currently there is no admin interface to add feeds, so I just post some example
-sql for adding a simple atom or RSS feed to phplifestream.
+Go to /services/add to add services you want to aggregate.
 
-<pre>
-insert into services set
-    `id` = 1, 
-    `name` = "Twitter", 
-    `code` = "twitter",
-    `url` = "http://www.twitter.com/MY USER NAME HERE", 
-    `aggregator` = "Feed",
-    `display_content` = 0,
-    `created_at` = now(), 
-    `updated_at` = now();
-insert into service_options set 
-    `service_id` = 1,
-    `name` = "url", 
-    `value` = "http://twitter.com/statuses/user_timeline/MY ID HERE",
-    `created_at` = now(), 
-    `updated_at` = now();
-</pre>
-
-To get the fancy icons in the beginning set the code to any of these
-
-* delicious
-* feed
-* flickr
-* github
-* lastfm
-* photo
-* twitter
-* googlereader  
 
 Deployment
 ----------
@@ -106,16 +77,8 @@ Then run
 ant package
 </pre>
 
-The directory dist is created containing the following. Everything prepared for
+The directory dist is created containing a prepared version of the application for
 your production environment based on the settings in deploy_env.properties.
-
-<pre>
-dist/
-|-- app
-|-- library
-|-- phplifestream.tar.gz
-`-- public
-</pre>
 
 Changelog
 ---------
