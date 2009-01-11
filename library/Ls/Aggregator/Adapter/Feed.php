@@ -4,9 +4,18 @@ class Ls_Aggregator_Adapter_Feed implements Ls_Aggregator_Adapter_Interface
 {
     const URL = "url";
 
+    private $_requiredOptions = array(
+        self::URL
+    );
+
     private $_url;
 
     public function __construct(array $options = array())
+    {
+        $this->setOptions($options);
+    }
+
+    public function setOptions(array $options = array())
     {
         foreach ($options as $key => $value) {
             switch ($key) {
@@ -14,7 +23,12 @@ class Ls_Aggregator_Adapter_Feed implements Ls_Aggregator_Adapter_Interface
                     $this->setUrl($value);
                     break;
             }
-        }        
+        }
+    }
+
+    public function getRequiredOptions()
+    {
+        return $this->_requiredOptions;
     }
 
     public function setUrl($url)
