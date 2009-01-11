@@ -11,12 +11,13 @@ class Ls_Aggregator
 
     public function fetchEntries()
     {
-        $aggregator = $this->getAggregatorInstance($this->_aggregator);
+        $aggregator = $this->getAggregatorInstance();
         return $aggregator->fetchEntries();
     }
 
-    static public function getAggregatorInstance($aggregator)
+    public function getAggregatorInstance()
     {
+        $aggregator = $this->_aggregator;
         $args = array();
 
         if (is_array($aggregator)) {
