@@ -10,7 +10,7 @@ class IndexController extends Zend_Controller_Action
      */
     public function indexAction() 
     {
-        $this->_redirect($this->_helper->url('home', 'streams'));
+        $this->_redirect($this->_helper->url('list', 'streams'));
     }
 
 } 
