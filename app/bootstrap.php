@@ -25,3 +25,7 @@ $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/../log/app_log');
 $logger = new Zend_Log($writer);
 Zend_Registry::set('logger', $logger);
 
+$authConfig = new Zend_Config_Ini(APPLICATION_PATH . '/conf/auth.ini', ENVIRONMENT);
+$authIdentitiesConfig = new Zend_Config_Ini(APPLICATION_PATH . '/conf/auth-identities.ini', ENVIRONMENT);
+Zend_Registry::set('auth', $authConfig);
+Zend_Registry::set('authIdentities', $authIdentitiesConfig);
