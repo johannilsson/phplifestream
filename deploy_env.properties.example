@@ -16,3 +16,8 @@ db.params.dbname   =
 ;
 auth.identities.username1 = 
 auth.identities.username1.openIdIdentity = 
+
+;
+; Google Analyics tracker id, leave empty if you dont have any analytics account
+;
+tracker.webPropertyId = 
