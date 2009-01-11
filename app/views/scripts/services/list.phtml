@@ -1,0 +1,40 @@
+<script language="javascript">
+<!--
+function confirmDelete(link){
+var shouldDelete = confirm("This will delete all aggregated streams, service "
+		+ "options and the service it self. \n\n" 
+		+ "Are you sure you want to delete it?")
+if(shouldDelete == true)
+	window.location = link
+}
+//-->
+</script>
+
+<h2>Services</h2>
+<a href="<?= $this->url(array('action' => 'add')) ?>">Add new service</a>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Aggregated At</th>
+        <th>Action</th>
+    </tr>
+<?php foreach ($this->services as $service):?>
+    <tr>
+        <td><?= $service->name ?></td>
+        <?php if (!is_null($service->aggregated_at)): ?>
+        <?php $aggregatedAt = $this->date($service->aggregated_at); ?>
+        <td title="<?= $aggregatedAt->get(Zend_Date::RFC_850)?>">
+            <?= $this->humanTimeSince($aggregatedAt)?> ago
+        </td>
+        <?php else: ?>
+        <td>Never</td>        
+        <?php endif;?>
+        <td>
+            <a href="<?= $this->url(array('action' => 'edit', 'id' => $service->id)) ?>">Edit</a> |
+            <a onclick="confirmDelete(this); return false;" href="<?= $this->url(array('action' => 'destroy', 'id' => $service->id)) ?>">Destroy</a>
+        </td>
+    </tr>
+<?php endforeach;?>
+</table>
+
+
