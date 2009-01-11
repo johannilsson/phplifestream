@@ -1,25 +1,96 @@
 <?php
 
 require_once 'Db/Services.php';
+require_once 'Db/ServiceOptions.php';
 
 class ServiceModel
 {
-    private $_dbTable = null;
+    private $_table = null;
 
-    public function getDbTable()
+    public function getTable()
     {
         if (null === $this->_streamsDb) {
-            $this->_dbTable = new Services();
+            $this->_table = new Services();
         }
-        return $this->_dbTable;
+        return $this->_table;
+    }
+    
+    public function add(array $data)
+    {
+        $serviceOptions = array();
+        if (isset($data['service_option'])) {
+            $serviceOptions = $data['service_option'];
+            unset($data['service_option']);
+        }
+
+        $id = $this->getTable()->insert($data);
+        $this->addOptions($serviceOptions, $id);
+        return $id;
+    }
+
+    public function update(array $data, $id)
+    {
+        $serviceOptions = array();
+        if (isset($data['service_option'])) {
+            $serviceOptions = $data['service_option'];
+            unset($data['service_option']);
+        }
+
+        $where = $this->getTable()->getAdapter()->quoteInto('id = ?', $id);
+
+        $this->getTable()->update(
+            $data,
+            $where);
+
+        $this->updateOptions($serviceOptions, $id);
+
+        return $id;
+    }
+
+    public function destroy($service)
+    {
+        if (false == $service instanceof Zend_Db_Table_Row) {
+            $service = $this->fetchEntry($service);            
+        }
+
+        $id = $service->id;
+
+        require_once 'StreamModel.php';
+        $streamModel = new StreamModel();
+        $streamModel->destroyByService($id);
+
+        $this->destroyOptions($id);
+
+        $service->delete();
+    }
+
+    public function fetchEntry($id)
+    {
+        if (!is_numeric($id)) {
+            throw new InvalidArgumentException('id is not numeric was "' . gettype($id) . '"');
+        }
+
+        $table = $this->getTable();
+        $select = $table->select()->where('id = ?', $id);
+
+        return $table->fetchRow($select);
+    }
+
+    public function fetchEntries()
+    {
+        $select = $this->getTable()->select()->order('name');
+        $entries = $this->getTable()->fetchAll(
+            $select
+        );
+        return $entries;
     }
 
     public function aggregate()
     {
         $logger = Zend_Registry::get('logger');
 
-        $services = $this->getDbTable()->fetchAll(
-            $this->getDbTable()
+        $services = $this->getTable()->fetchAll(
+            $this->getTable()
                 ->select()
                 ->where('aggregate = ?', true)
         );
@@ -29,7 +100,7 @@ class ServiceModel
             $logger->info('Aggregating ' . $service->name . '.');
 
             try {
-                $options = $this->fetchServiceOptions($service->id);
+                $options = $this->fetchOptions($service->id);
                 $aggregator = new Ls_Aggregator(array($service->aggregator, $options));
 
                 $entries = $aggregator->fetchEntries();
@@ -52,26 +123,52 @@ class ServiceModel
         return $arrEntries;
     }
 
-    public function fetchServiceOptions($serviceId)
+    public function addOptions(array $options, $serviceId)
     {
-        $select = $this->getDbTable()->select()
+        $serviceOptions = new ServiceOptions();
+        foreach ($options as $optionKey => $optionValue) {
+            $option['service_id'] = $serviceId;
+            $option['name'] = $optionKey;
+            $option['value'] = $optionValue;
+            $serviceOptions->insert($option);
+        }
+    }
+
+    public function updateOptions(array $options, $serviceId)
+    {
+        $serviceOptions = new ServiceOptions();
+        foreach ($options as $optionKey => $optionValue) {
+            $option['name'] = $optionKey;
+            $option['value'] = $optionValue;
+
+            $where = array();
+            $where[] = $serviceOptions->getAdapter()->quoteInto('service_id = ?', $serviceId);
+            $where[] = $serviceOptions->getAdapter()->quoteInto('name = ?', $optionKey);
+
+            $serviceOptions->update($option, $where);
+        }
+    }
+
+    public function destroyOptions($serviceId)
+    {
+        $serviceOptions = new ServiceOptions();
+
+        $where = $serviceOptions->getAdapter()->quoteInto('service_id = ?', $serviceId);
+
+        $serviceOptions->delete($where);
+    }
+
+    public function fetchOptions($serviceId)
+    {
+        $select = $this->getTable()->select()
             ->setIntegrityCheck(false)
             ->from('service_options')
             ->where('service_id = ?', $serviceId);
-        $options = $this->getDbTable()->fetchAll($select);
+        $options = $this->getTable()->fetchAll($select);
         $arrOptions = array();
         foreach ($options as $row) {
             $arrOptions[$row->name] = $row->value; 
         }
         return $arrOptions;
-    }
-
-    public function fetchEntries()
-    {
-        $select = $this->getDbTable()->select()->order('name');
-        $entries = $this->getDbTable()->fetchAll(
-            $select
-        );
-        return $entries;
     }
 }
