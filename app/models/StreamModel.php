@@ -52,7 +52,14 @@ class StreamModel
     {
         return sha1($contentId . $service->id);
     }
-   
+
+    public function destroyByService($serviceId)
+    {
+        $table = $this->getDbTable();
+        $where = $table->getAdapter()->quoteInto('service_id = ?', $serviceId);
+        $table->delete($where);
+    }
+
     public function fetchEntries($page = null)
     {
         $select = $this->getDbTable()->select()
