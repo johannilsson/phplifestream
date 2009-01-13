@@ -90,6 +90,21 @@ class StreamModel
         return $entries;
     }
 
+    public function fetchEntry($id)
+    {
+        if (!is_numeric($id)) {
+            throw new InvalidArgumentException('id is not numeric was "' . gettype($id) . '"');
+        }
+
+        $select = $this->getTable()->select()
+            ->setIntegrityCheck(false)
+            ->from('streams')
+            ->join('services', 'services.id = streams.service_id', array('code', 'name', 'display_content'))
+            ->where('streams.id = ?', $id);
+
+        return $this->getTable()->fetchRow($select);
+    }
+
     private function _paginateResult($entries, $page)
     {
         $entries  = Zend_Paginator::factory($entries);

@@ -1,0 +1,9 @@
+<h2><?=$this->entry->title ?></h2>
+<?php if ($this->entry->display_content):?>
+<div class="content">
+<p><?=$this->entry->summary ?></p>
+<?=$this->entry->content ?>
+</div>
+<?php endif;?>
+<p>via <a href="<?=$this->entry->url ?>"><?=$this->entry->name ?></a></p>
+

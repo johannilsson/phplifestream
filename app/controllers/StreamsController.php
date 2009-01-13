@@ -6,6 +6,28 @@ class StreamsController extends Zend_Controller_Action
 {
     protected $_streamEntryModel = null;
 
+    public function init()
+    {
+        $contexts = array(
+          'atom' => array(
+                'suffix'  => 'atom', 
+                'headers' => array(
+                 //   'Content-Type' => 'application/atom+xml',
+                ),
+          ), 
+          'rss' => array(
+            'suffix'  => 'rss', 
+            'headers' => array(
+                'Content-Type' => 'application/rss+xml',
+            ),
+          )
+        );
+        $contextSwitch = $this->_helper->getHelper('contextSwitch');
+        $contextSwitch->addContexts($contexts)
+                      ->addActionContext('list', array('atom', 'rss'))
+                      ->initContext();
+    }
+
     protected function _getStreamModel() 
     {
         if (null === $this->_streamEntryModel) { 
@@ -31,5 +53,10 @@ class StreamsController extends Zend_Controller_Action
     public function listAction() 
     {
         $this->view->entries = $this->_getStreamModel()->fetchEntries($this->_getParam('page', 1));
+    }
+
+    public function viewAction() 
+    {
+        $this->view->entry = $this->_getStreamModel()->fetchEntry($this->_getParam('id', null));
     }
 } 

@@ -4,6 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="http://yui.yahooapis.com/2.5.1/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
+    <link rel="alternate"   type="application/atom+xml" title="Lifestream Atom Feed" href="<?= $this->baseUrl() ?><?= $this->url(array('controller' => 'streams', 'action' => 'list', 'format' => 'atom')) ?>" />
+    <link rel="alternate"   type="application/atom+xml" title="Lifestream RSS Feed" href="<?= $this->baseUrl() ?><?= $this->url(array('controller' => 'streams', 'action' => 'list', 'format' => 'rss')) ?>" />
     <link href="<?= $this->baseUrl() ?>/stylesheets/lifestream.css" media="screen" rel="stylesheet" type="text/css" />
     <title><?= $this->title ?> - Lifestream</title>
 </head>
