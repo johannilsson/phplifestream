@@ -1,10 +1,24 @@
 <?php
 
-class Streams extends Zend_Db_Table_Abstract
+require_once 'Services.php';
+require_once 'TaggedStreams.php';
+
+class Streams extends Common_Db_Table
 {
     protected $_name = 'streams';
     protected $_primary = 'id';
-    
+
+    protected $_dependentTables = array('TaggedStreams');
+
+    protected $_referenceMap    = array(
+        'Service' => array(
+            'columns'           => array('service_id'),
+            'refTableClass'     => 'Services',
+            'refColumns'        => array('id'), 
+            'onDelete'          => self::CASCADE,
+        ),
+    );
+
     public function insert(array $data)
     {
         if ($data['content_created_at'] != '') {
@@ -36,7 +50,7 @@ class Streams extends Zend_Db_Table_Abstract
 
         return parent::update($data, $where);
     }
-
+    
     private function _createDate($date)
     {
         try {

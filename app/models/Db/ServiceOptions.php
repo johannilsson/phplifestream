@@ -1,9 +1,18 @@
 <?php
 
-class ServiceOptions extends Zend_Db_Table_Abstract
+class ServiceOptions extends Common_Db_Table
 {
     protected $_name = 'service_options';
     protected $_primary = 'id';
+
+    protected $_referenceMap    = array(
+        'Service' => array(
+            'columns'           => array('service_id'),
+            'refTableClass'     => 'Services',
+            'refColumns'        => array('id'), 
+            'onDelete'          => self::CASCADE,
+        ),
+    );
 
     public function insert(array $data)
     {

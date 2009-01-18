@@ -1,9 +1,13 @@
 <?php
 
-class Services extends Zend_Db_Table_Abstract
+require_once 'Streams.php';
+
+class Services extends Common_Db_Table
 {
     protected $_name = 'services';
     protected $_primary = 'id';
+
+    protected $_dependentTables = array('Streams', 'ServiceOptions');
 
     public function insert(array $data)
     {
