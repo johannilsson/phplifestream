@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.1.1
+* FIX All tags was not added correctly per entry
+* CHG Renamed addStreamToTags to addTagsToStream in TaggedStreams.
+
 ## 0.9.1
 * ADD Aggregation of tags from feeds and tagged streams
 * ADD Updated db schema. Run db/migrations/1.0.2/up.sql
