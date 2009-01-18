@@ -1,16 +1,3 @@
-<ul class="lifestream">
-<?php foreach ($this->entries as $entry):?>
-    <li class="<?= $entry->code ?>">
-        <a href="<?= $entry->url ?>"><?= $entry->title ?></a> 
-        <?php if ($entry->display_content):?>
-        <p><?= $entry->content; ?></p>
-        <?php endif;?>
-        <?php $date = $this->date($entry->content_created_at)?>
-        <span class="since" title="<?= $date->get(Zend_Date::RFC_850)?>">
-            <?= $this->humanTimeSince($date)?> ago
-        </span>
-    </li>
-<?php endforeach;?>
-</ul>
+<?= $this->partial('_stream_list.phtml', array('entries' => $this->entries))?>
 
 <?= $this->entries ?>
