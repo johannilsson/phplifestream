@@ -75,13 +75,6 @@ class StreamModel
         return sha1($contentId . $service->id);
     }
 
-    public function destroyByService($serviceId)
-    {
-        $table = $this->getTable();
-        $where = $table->getAdapter()->quoteInto('service_id = ?', $serviceId);
-        $table->delete($where);
-    }
-
     public function fetchEntries($page = null)
     {
         $select = $this->getTable()->select()
@@ -149,6 +142,27 @@ class StreamModel
         foreach ($entries as $entry) {
             $percent = round($entry->entries_per_service / $total * 100, 2);
             $stats[$entry->name] = $percent;
+        }
+        return $stats;
+    }
+
+    public function getActivityStats() 
+    {
+        // select date_format(content_created_at, '%Y%m') as created, count(1) as total 
+        // from streams group by created;
+        $select = $this->getTable()->select()
+            ->from('streams', array(
+                'date_format(content_created_at, "%Y%m") as created', 
+                'count(1) as total'))
+            ->group('created')
+            ->limit(10);
+
+        $entries = $this->getTable()->fetchAll(
+            $select
+        );
+        $stats = array();
+        foreach ($entries as $entry) {
+            $stats[$entry->created] = $entry->total;
         }
         return $stats;
     }
