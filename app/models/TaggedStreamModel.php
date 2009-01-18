@@ -42,16 +42,14 @@ class TaggedStreamModel
     }
 
     /**
-     * Add new tagged stream entry
+     * Add tags to stream entry
      * @param $tags
      * @param $stream Zend_Db_Table_Row or id 
-     * @return int Id of added item
+     * @return void
      */
     public function addTagsToStream(array $tags, $stream) 
     {
-        $logger = Zend_Registry::get('logger');
-
-        $this->getTable()->addStreamToTags($stream, $tags);
+        $this->getTable()->addTagsToStream($tags, $stream);
     }
 
     /**

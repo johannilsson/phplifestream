@@ -35,7 +35,7 @@ class TaggedStreams extends Common_Db_Table
         }
     }
 
-    public function addStreamToTags($stream, array $tagNames)
+    public function addTagsToStream(array $tagNames, $stream)
     {
         if ($stream instanceof Zend_Db_Table_Row) {
             $streamId = $stream->id;
@@ -45,32 +45,21 @@ class TaggedStreams extends Common_Db_Table
         // Remove all references        
         $this->deleteByStreamId($streamId);
 
-        $tags = new Tags();
-
-        $sanitizeFilter = new Common_Filter_SanitizeString();
-        $assoccTags = array();
-        foreach ($tagNames as $name) {
-            $name = trim($name);
-            if ($name == '') {
-                continue; // skip bogus names in array.
+        $tags = array();
+        $tagTabel = new Tags();
+        if (!empty($tagNames)) {
+            $tags = $tagTabel->createTags($tagNames);
+            foreach ($tags as $tagRow) {
+                try {
+                    $taggedRow = $this->createRow(array(
+                        'tag_id'    => $tagRow->id, 
+                        'stream_id' => $streamId));
+                    $taggedRow->save();
+                } catch (Exception $e) {
+                    ;
+                }
             }
-            $tag = $tags->findByName($name);
-
-            if (null == $tag) {
-                $tag = $tags->createRow();
-                $tag->name = (string) $name;
-                $tag->clean_name = $sanitizeFilter->filter($name);
-                $tag->save();
-            }
-
-            $tagged = $this->createRow(array(
-                'tag_id'   => $tag->id, 
-                'stream_id' => $streamId));
-
-            $tagged->save();
-
-            $assoccTags[] = $tag;
         }
-        return $assoccTags;
+        return $tags;
     }
 }

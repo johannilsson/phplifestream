@@ -58,13 +58,16 @@ class Tags extends Common_Db_Table
      */
     public function createTags(array $tagNames)
     {
+        $sanitizeFilter = new Common_Filter_SanitizeString();
         $tags = array();
         foreach ($tagNames as $tagName) {
+            $tagName = trim($tagName);
             if ($tagName != '') {
                 $tag = $this->findByName($tagName);
-                if (!$tag instanceof App_Db_Table_Row) {
+                if (null === $tag) {
                     $tag = $this->createRow();
-                    $tag->name = trim($tagName);
+                    $tag->name = $tagName;
+                    $tag->clean_name = $sanitizeFilter->filter($tagName);
                     $tag->save();
                 }
                 $tags[] = $tag;

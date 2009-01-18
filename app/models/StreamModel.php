@@ -45,6 +45,7 @@ class StreamModel
             $id = $db->insert($data);
 
             $taggedStreamsModel = TaggedStreamModel::getInstance();
+
             $taggedStreamsModel->addTagsToStream($tags, $id);
 
             $logger->info('Added entry ' . $data['unique_id'] . '.');
