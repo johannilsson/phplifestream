@@ -15,7 +15,7 @@ class GraphsController extends Zend_Controller_Action
         return $this->_streamEntryModel; 
     }
 
-    public function serviceAction() 
+    public function indexAction() 
     {
         $this->view->entries = $this->_getStreamModel()->fetchEntriesPerService();
     }
