@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Db/Streams.php';
+require_once 'TaggedStreamModel.php';
 require_once 'DuplicateStreamEntryException.php';
 
 class StreamModel
@@ -22,13 +23,13 @@ class StreamModel
      * Add new stream entry
      * @param $data
      * @throws DuplicateStreamEntryException
-     * @return unknown_type
+     * @return int Id of added item
      */
     public function add(array $data) 
     {
         $logger = Zend_Registry::get('logger');
         $db = $this->getTable();
-
+        
         if (!isset($data['unique_id'])) {
             $data['unique_id'] = $this->createUniqueId(
                 $data['content_unique_id'], 
@@ -38,9 +39,21 @@ class StreamModel
         $entry = $db->fetchRow($db->select()->where('unique_id = ?', $data['unique_id']));
         $id = null;
         if (null == $entry) {
+            $tags = isset($data['tags']) ? $data['tags'] : array();
+            unset($data['tags']);
+
             $id = $db->insert($data);
+
+            $taggedStreamsModel = TaggedStreamModel::getInstance();
+            $taggedStreamsModel->addTagsToStream($tags, $id);
+
             $logger->info('Added entry ' . $data['unique_id'] . '.');
         } else {
+            // Uncomment to always aggregate tags...
+            //$tags = isset($data['tags']) ? $data['tags'] : array();
+            //$taggedStreamsModel = TaggedStreamModel::getInstance();
+            //$taggedStreamsModel->addTagsToStream($tags, $entry->id);
+
             $logger->debug('Entry exists ' . $data['unique_id'] . '.');
             throw new DuplicateStreamEntryException('Entry already exists');
         }
