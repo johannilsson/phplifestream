@@ -4,10 +4,13 @@
 * ADD Aggregation of tags from feeds and tagged streams
 * ADD Updated db schema. Run db/migrations/1.0.2/up.sql
 * ADD Db table realations, including cascading deletes
+* ADD ActivityStats helper
+* CHG Renamed graphs action services to index 
 * CHG Extended Ls_Aggregator_Entry to hold list of categories
 * CHG Extended StreamModel::add to take tags key in data array
 * CHG ServiceModel::destroy is not direct coupled to StreamModel anymore
 * CHG Removed ServiceModel::destroyOptions
+* CHG Removed StreamModel::destroyByService
 
 ## 0.9.0
 * Initial release
