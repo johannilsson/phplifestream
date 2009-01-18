@@ -55,12 +55,6 @@ class ServiceModel
 
         $id = $service->id;
 
-        require_once 'StreamModel.php';
-        $streamModel = new StreamModel();
-        $streamModel->destroyByService($id);
-
-        $this->destroyOptions($id);
-
         $service->delete();
     }
 
@@ -147,15 +141,6 @@ class ServiceModel
 
             $serviceOptions->update($option, $where);
         }
-    }
-
-    public function destroyOptions($serviceId)
-    {
-        $serviceOptions = new ServiceOptions();
-
-        $where = $serviceOptions->getAdapter()->quoteInto('service_id = ?', $serviceId);
-
-        $serviceOptions->delete($where);
     }
 
     public function fetchOptions($serviceId)
