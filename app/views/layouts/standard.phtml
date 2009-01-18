@@ -18,8 +18,9 @@
         <?= $this->layout()->content; ?>
     </div>
     <div class="yui-u">
-        <?= $this->tags(); ?>
-        <?= $this->myStreams(); ?>
+        <?= $this->tags() ?>
+        <?= $this->myStreams() ?>
+        <a href="<?= $this->baseUrl() . $this->url(array('controller' => 'graphs', 'action' => null)) ?>"><img src="<?= $this->activityStats(200, 100, false) ?>" alt="Activity stats"/></a>
     </div>
 </div>
 
