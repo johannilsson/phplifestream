@@ -21,7 +21,7 @@ class Zend_View_Helper_StreamFeed
             $updatedAt = $this->view->date($entry->updated_at);
             $entry = array(
             'title'        => $entry->title, //required
-            'link'         => $this->view->appUrl() . $this->view->url(array('action' => 'view', 'id' => $entry->id, 'format' => null)), //required
+            'link'         => $this->view->appUrl() . $this->view->url(array('action' => 'show', 'id' => $entry->id, 'format' => null)), //required
             'description'  => $entry->title, // only text, no html, required
             'guid'         => $entry->id,
             //'content'      => $entry->title, // can contain html, optional
