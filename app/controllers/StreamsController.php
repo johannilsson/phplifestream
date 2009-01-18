@@ -55,7 +55,7 @@ class StreamsController extends Zend_Controller_Action
         $this->view->entries = $this->_getStreamModel()->fetchEntries($this->_getParam('page', 1));
     }
 
-    public function viewAction() 
+    public function showAction() 
     {
         $this->view->entry = $this->_getStreamModel()->fetchEntry($this->_getParam('id', null));
     }
