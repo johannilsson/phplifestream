@@ -63,11 +63,18 @@ class Ls_Aggregator_Adapter_Feed implements Ls_Aggregator_Adapter_Interface
             $entry->setSummary($item->summary);
             $entry->setContentCreatedAt($this->_createDate($item->published, Zend_Date::ATOM));
             $entry->setContentUpdatedAt($this->_createDate($item->updated, Zend_Date::ATOM));
+
+            foreach ($item->category as $category) {
+                $entry->addCategory($category->offsetGet('term'));
+            }
         } else {
             $entry->setUniqueId($item->guid);
             $entry->setSummary($item->description);
             $entry->setContentCreatedAt($this->_createDate($item->pubDate, Zend_Date::RSS));
             $entry->setContentUpdatedAt($this->_createDate($item->updated, Zend_Date::RSS));
+            foreach ($item->category as $category) {
+                $entry->addCategory($category);
+            }
         }
 
         // Make sure we have both created and updated with something

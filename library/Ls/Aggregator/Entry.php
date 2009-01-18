@@ -9,6 +9,7 @@ class Ls_Aggregator_Entry
     private $_content;
     private $_contentCreatedAt;
     private $_contentUpdatedAt;
+    private $_categories = array();
 
     public function toArray()
     {
@@ -19,7 +20,8 @@ class Ls_Aggregator_Entry
             'summary'              => $this->_summary,
             'content'              => $this->_content,
             'content_created_at'   => $this->_contentCreatedAt,
-            'content_updated_at'   => $this->_contentUpdatedAt,        
+            'content_updated_at'   => $this->_contentUpdatedAt,
+            'categories'           => $this->_categories,
         );
     }
 
@@ -58,6 +60,16 @@ class Ls_Aggregator_Entry
         $this->_contentUpdatedAt = (string) $value;   
     }
 
+    public function setCategories(array $categories)
+    {
+        $this->_categories = $categories;   
+    }
+
+    public function addCategory($category)
+    {
+        $this->_categories[] = (string) $category;
+    }
+    
     public function getUniqueId()
     {
         return $this->_uniqueId;   
@@ -91,5 +103,10 @@ class Ls_Aggregator_Entry
     public function getContentUpdatedAt()
     {
         return $this->_contentUpdatedAt;   
+    }
+
+    public function getCategories()
+    {
+        return $this->_categories;   
     }
 }
