@@ -21,3 +21,9 @@ auth.identities.username1.openIdIdentity =
 ; Google Analyics tracker id, leave empty if you dont have any analytics account
 ;
 tracker.webPropertyId = 
+
+;
+; Disqus Comment integration, leave empty if you dont have an account or do not 
+; want comments.
+;
+disqus.shortName = 

@@ -9,6 +9,7 @@
         <span class="since" title="<?= $date->get(Zend_Date::RFC_850)?>">
             <a href="<?= $this->url(array('id' => $entry->id, 'controller' => 'streams', 'action' => 'show'))?>"><?= $this->humanTimeSince($date)?> ago</a>
         </span>
+        <?= $this->disqusCommentLink($entry) ?>
     </li>
 <?php endforeach;?>
 </ul>
