@@ -1,5 +1,10 @@
 # Changelog
 
+## Next Release
+* FIX StreamModel::getActivityStats() was not always returning the latest date
+* ADD Comments on entries via Disqus
+* ADD Entry title is now visible in the html page title
+
 ## 0.9.1.1
 * FIX All tags was not added correctly per entry
 * CHG Renamed addStreamToTags to addTagsToStream in TaggedStreams.
