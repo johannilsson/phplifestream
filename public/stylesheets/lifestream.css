@@ -140,6 +140,11 @@ ul.lifestream {
     color: #666;
 }
 
+.comment_link a {
+    font-size: 0.8em;
+    color: #666;
+}
+
 div.pagination-control {
   font-size: .8em;
   text-align: center;
