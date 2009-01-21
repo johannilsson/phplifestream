@@ -156,6 +156,7 @@ class StreamModel
                 'date_format(content_created_at, "%Y%m") as created', 
                 'count(1) as total'))
             ->group('created')
+            ->order('created desc')
             ->limit(10);
 
         $entries = $this->getTable()->fetchAll(
@@ -165,6 +166,7 @@ class StreamModel
         foreach ($entries as $entry) {
             $stats[$entry->created] = $entry->total;
         }
-        return $stats;
+        unset($entries);
+        return array_reverse($stats, true);
     }
 }
