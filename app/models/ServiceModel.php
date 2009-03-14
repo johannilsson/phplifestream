@@ -5,6 +5,7 @@ require_once 'Db/ServiceOptions.php';
 
 class ServiceModel
 {
+    private $_streamsDb = null;
     private $_table = null;
 
     public function getTable()
