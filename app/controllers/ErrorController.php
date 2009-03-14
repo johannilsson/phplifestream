@@ -7,6 +7,10 @@ require_once 'Zend/Controller/Action.php';
  */
 class ErrorController extends Zend_Controller_Action
 {
+    public function init() {
+        $this->view->title = Zend_Registry::get('appConfig')->about->title;
+    }
+    
     public function errorAction()
     {
         $errors = $this->_getParam('error_handler');

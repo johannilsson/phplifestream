@@ -7,17 +7,18 @@
     <link rel="alternate"   type="application/atom+xml" title="Lifestream Atom Feed" href="<?= $this->baseUrl() ?><?= $this->url(array('controller' => 'streams', 'action' => 'list', 'format' => 'atom')) ?>" />
     <link rel="alternate"   type="application/atom+xml" title="Lifestream RSS Feed" href="<?= $this->baseUrl() ?><?= $this->url(array('controller' => 'streams', 'action' => 'list', 'format' => 'rss')) ?>" />
     <link href="<?= $this->baseUrl() ?>/stylesheets/lifestream.css" media="screen" rel="stylesheet" type="text/css" />
-    <title><?= $this->title ?> - Lifestream</title>
+    <?= $this->headTitle() ?>
 </head>
 <body>
 <div id="doc3" class="yui-t7">
-   <div id="hd"><h1><a href="<?= $this->baseUrl() . $this->url(array('controller' => 'streams', 'action' => 'home', 'page' => 1)) ?>">My Lifestream</a></h1></div>
+   <div id="hd"><h1><a href="<?= $this->baseUrl() . $this->url(array('controller' => 'streams', 'action' => 'home', 'page' => 1)) ?>"><?= $this->title ?></a></h1></div>
    <div id="bd">
     <div class="yui-ge">
     <div class="yui-u first">
         <?= $this->layout()->content; ?>
     </div>
     <div class="yui-u">
+        <?= $this->about() ?>
         <?= $this->tags() ?>
         <?= $this->myStreams() ?>
         <a href="<?= $this->baseUrl() . $this->url(array('controller' => 'graphs', 'action' => null)) ?>"><img src="<?= $this->activityStats(200, 100, false) ?>" alt="Activity stats"/></a>
@@ -25,7 +26,7 @@
 </div>
 
 </div>
-   <div id="ft">Get the source at <a href="http://github.com/johannilsson/phplifestream/tree/master">Github</a></div>
+   <div id="ft">Get the source for phplifestream at <a href="http://github.com/johannilsson/phplifestream/tree/master">Github</a></div>
 </div>
 
 <?= $this->disqusCommentEnabler() ?>

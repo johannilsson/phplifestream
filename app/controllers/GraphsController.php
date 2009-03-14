@@ -6,6 +6,10 @@ class GraphsController extends Zend_Controller_Action
 {
     protected $_streamEntryModel = null;
 
+    public function init() {
+        $this->view->title = Zend_Registry::get('appConfig')->about->title;
+    }
+    
     protected function _getStreamModel() 
     {
         if (null === $this->_streamEntryModel) { 

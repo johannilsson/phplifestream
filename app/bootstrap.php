@@ -30,5 +30,7 @@ Zend_Registry::set('logger', $logger);
 
 $authConfig = new Zend_Config_Ini(APPLICATION_PATH . '/conf/auth.ini', ENVIRONMENT);
 $authIdentitiesConfig = new Zend_Config_Ini(APPLICATION_PATH . '/conf/auth-identities.ini', ENVIRONMENT);
+$appConfig = new Zend_Config_Ini(APPLICATION_PATH . '/conf/app.ini', ENVIRONMENT);
 Zend_Registry::set('auth', $authConfig);
 Zend_Registry::set('authIdentities', $authIdentitiesConfig);
+Zend_Registry::set('appConfig', $appConfig);

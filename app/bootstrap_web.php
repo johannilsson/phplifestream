@@ -9,6 +9,8 @@ $layout = Zend_Layout::startMvc(array(
 
 $view = new Zend_View();
 $view->setEncoding('UTF-8');
+$view->headTitle(Zend_Registry::get('appConfig')->about->title);
+
 Zend_View_Helper_PaginationControl::setDefaultViewPartial('_search_pagination_control.phtml');
 Zend_Paginator::setDefaultScrollingStyle('Sliding');
 

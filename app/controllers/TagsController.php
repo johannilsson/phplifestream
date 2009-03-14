@@ -6,6 +6,10 @@ require_once APPLICATION_PATH . '/models/TagModel.php';
 
 class TagsController extends Zend_Controller_Action 
 {
+    public function init() {
+        $this->view->title = Zend_Registry::get('appConfig')->about->title;
+    }
+    
     public function showAction() 
     {
         $tag = TagModel::getInstance()->fetchEntryByCleanName($this->_getParam('name'));

@@ -26,6 +26,8 @@ class StreamsController extends Zend_Controller_Action
         $contextSwitch->addContexts($contexts)
                       ->addActionContext('list', array('atom', 'rss'))
                       ->initContext();
+
+        $this->view->title = Zend_Registry::get('appConfig')->about->title;
     }
 
     protected function _getStreamModel() 
@@ -58,7 +60,7 @@ class StreamsController extends Zend_Controller_Action
     public function showAction() 
     {
         $entry = $this->_getStreamModel()->fetchEntry($this->_getParam('id', null));
-        $this->view->title = $entry->title;
+        $this->view->headTitle(' ' . $entry->title);
         $this->view->entry = $entry;
     }
 } 
