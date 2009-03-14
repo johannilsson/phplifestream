@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next Release
+* ADD Lifestream personalization, edit the about section in app.ini conf.
 * FIX StreamModel::getActivityStats() was not always returning the latest date
 * ADD Comments on entries via Disqus
 * ADD Entry title is now visible in the html page title
