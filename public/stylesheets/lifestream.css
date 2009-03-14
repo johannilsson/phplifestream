@@ -128,6 +128,12 @@ ul.lifestream {
     background-image: url("/images/photo.png");
 }
 
+.lifestream li.tamat {
+    background-color: #FAEBD7;
+    background-image: url("/images/tamat.png");
+}
+
+
 .sidebar li {
     background-color: #fff !important;	
 }
