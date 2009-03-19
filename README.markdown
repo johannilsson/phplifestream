@@ -5,21 +5,20 @@ Aggregates feeds and combines them to one.
 
 * Built with Zend Framework
 * Easy to extends with new aggregators and services
-* Atom and RSS support
+* Aggregates any Atom or RSS stream
+* Atom and RSS support for aggregated items
 
 Live example is availabe at <http://www.johannilsson.me>
 
 Contact me on Twitter if you have any suggestions, like it or dont like it 
-<http://twitter.com/johanjohanjohan>
+<http://twitter.com/johanni>
 
 Installation
 ------------
 
 ### Configuration
 
-#### Database
-
-Edit the file app/conf/db.ini
+All application configuration is done in the file ./app/conf/app.conf.
 
 #### Include path
 
@@ -31,13 +30,6 @@ to Zend Framework.
 
 You can change the environment in the above mention file phplifestream-conf.php
 see comment in it.
-
-### Webserver
-
-Point the webservers webroot to the public directory. 
-
-Refer to the Zend documentation if running another server than apache what to 
-replace the .htaccess file with.
 
 ### Logging
 
@@ -63,6 +55,12 @@ in the include path for an easy way to set environment.
 
 Go to /services/add to add services you want to aggregate.
 
+### Webserver
+
+Point the webservers webroot to the public directory. 
+
+Refer to the Zend documentation if running another server than apache what to 
+replace the .htaccess file with.
 
 Deployment
 ----------
@@ -82,21 +80,16 @@ your production environment based on the settings in deploy_env.properties.
 
 Changelog
 ---------
-
 Concider it unstable and to break for each commit.
 
-* Since commit 52a208dcae4e3d7b526d462c655054a0c0c507fc the schema was updated
-  please run db/migrate/1.0.1/up.sql to migrate to the latest schema. Also changed
-  to use sha1 instead of md5 when calculating the unique_id so you might want to
-  re run aggregation.
+A full changelog is found in the file CHANGELOG.
 
 Todo
 ----
 
 * Admin Admin
 * Ideas?
-* Tags from feeds
-* Comments
+* Fix TODO marks in the code.
 
 Credits
 -------

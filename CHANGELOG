@@ -1,6 +1,8 @@
 # Changelog
 
 ## Next Release
+* CHG Centralized all configuration to app.ini. All other conf files was 
+      removed.
 * ADD Lifestream personalization, edit the about section in app.ini conf.
 * FIX StreamModel::getActivityStats() was not always returning the latest date
 * ADD Comments on entries via Disqus
