@@ -11,7 +11,7 @@ class Zend_View_Helper_Analytics
     public function analytics()
     {
         if (ENVIRONMENT == 'production') {
-            $config = new Zend_Config_Ini(APPLICATION_PATH . '/conf/tracker.ini', ENVIRONMENT);
+            $config = Zend_Registry::get('appConfig');
             $id = $config->tracker->webPropertyId;
             if ("" != $id) {
                 return '<script type="text/javascript">

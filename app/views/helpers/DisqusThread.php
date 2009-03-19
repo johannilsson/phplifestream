@@ -14,7 +14,7 @@ class Zend_View_Helper_DisqusThread
      */
     public function disqusThread()
     {
-        $config = new Zend_Config_Ini(APPLICATION_PATH . '/conf/disqus.ini', ENVIRONMENT);
+        $config = Zend_Registry::get('appConfig');
         if ("" != ($shortName = $config->disqus->shortName)) {
             $params = array('shortName' => $shortName);
             return $this->view->partial('_disqus_thread.phtml', $params);

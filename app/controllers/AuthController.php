@@ -27,7 +27,7 @@ class AuthController extends Zend_Controller_Action
         $auth = Zend_Auth::getInstance();
 
         if ($auth->hasIdentity()) {
-            $config = Zend_Registry::get('auth');
+            $config = Zend_Registry::get('appConfig');
             $this->_redirect($this->_helper->url->simple(
                 $config->auth->login->welcome->action, 
                 $config->auth->login->welcome->controller));
@@ -62,10 +62,10 @@ class AuthController extends Zend_Controller_Action
         if ('' != $this->_request->getParam('openid_mode')) {
             $openIdAdapter = new Zend_Auth_Adapter_OpenId();
             $result = $auth->authenticate($openIdAdapter);
-            $config = Zend_Registry::get('auth');
-            $identities = Zend_Registry::get('authIdentities');
+            $config = Zend_Registry::get('appConfig');
             // TODO: fix proper error message for this.
-            if ($result->isValid() && in_array($result->getIdentity(), $identities->auth->identities->toArray())) {
+            if ($result->isValid() && in_array($result->getIdentity(), 
+                    $config->auth->identities->toArray())) {
                 $auth->getStorage()->write($result->getIdentity());
                 $this->_redirect($this->_helper->url->simple(
                     $config->auth->login->welcome->action, 

@@ -14,7 +14,7 @@ class Zend_View_Helper_DisqusCommentLink
      */
     public function disqusCommentLink($entry)
     {
-        $config = new Zend_Config_Ini(APPLICATION_PATH . '/conf/disqus.ini', ENVIRONMENT);
+        $config = Zend_Registry::get('appConfig');
         if ("" != ($shortName = $config->disqus->shortName)) {
             $params = array('entry' => $entry);
             return $this->view->partial('_disqus_comment_link.phtml', $params);

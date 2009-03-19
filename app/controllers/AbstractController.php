@@ -14,7 +14,7 @@ abstract class AbstractController extends Zend_Controller_Action
     private function auth()
     {
         // Move this to some auth helper instead, but this works for now.
-        $authConf = Zend_Registry::get('auth');
+        $authConf = Zend_Registry::get('appConfig');
         if ($authConf->auth->enabled == false) {
             return false;
         }
