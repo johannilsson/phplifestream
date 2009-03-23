@@ -133,6 +133,10 @@ ul.lifestream {
     background-image: url("/images/tamat.png");
 }
 
+.lifestream li.disqus {
+    background-color: #BCD2EE;
+    background-image: url("/images/disqus.png");
+}
 
 .sidebar li {
     background-color: #fff !important;	

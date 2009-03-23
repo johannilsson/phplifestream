@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next Release
+* ADD Added feed icons for disqus and tamat.
 * CHG Centralized all configuration to app.ini. All other conf files was 
       removed.
 * ADD Lifestream personalization, edit the about section in app.ini conf.
