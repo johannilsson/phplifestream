@@ -1,12 +1,14 @@
-PHP Lifestream
-==============
+PHPLifestream
+=============
 
-Aggregates feeds and combines them to one.
+PHPLifestream aggregates and provides graphs of your activities around the 
+internet.
 
-* Built with Zend Framework
 * Easy to extends with new aggregators and services
-* Aggregates any Atom or RSS stream
-* Atom and RSS support for aggregated items
+* Aggregates any Atom and RSS feed
+* Atom and * Tags is extracted from feedsRSS support for aggregated items
+* Admin with openid login
+* Built with Zend Framework
 
 Live example is availabe at <http://www.johannilsson.me>
 
@@ -16,73 +18,48 @@ Contact me on Twitter if you have any suggestions, like it or dont like it
 Installation
 ------------
 
-### Configuration
+* Download zend framework
+* Point the document root to /path/to/phplifestream/public
+* Add zend framework to the include path
+* Log files is located in /path/to/phplifestream/log you might need to chmod 
+  this directory.
+* Edit the file /path/to/phplifestream/app/conf/app.ini
+* Add services to aggregate at http://example.com/services
+* Add cron job to aggregate added services.
 
-All application configuration is done in the file ./app/conf/app.conf.
+### phplifestream-conf.php
 
-#### Include path
+This file makes it easier to add the include path and choose the application 
+environment. Rename the file phplifestream-conf.php.example to 
+phplifestream-conf.php. Add the path to zend framework and choose your 
+environment you can choose between 'devlopment' and 'production'.
 
-If Zend Framework is not in your include path you need to add it. Rename the 
-file phplifestream-conf.php.example into phplifestream-conf.php and add the path
-to Zend Framework.
+### deploy_env.properties
 
-#### Environment
+Instead of editing the app.ini settings you can edit the options via 
+deploy_env.properties. Rename the file deploy_env.properties.example into 
+deploy_env.properties.
 
-You can change the environment in the above mention file phplifestream-conf.php
-see comment in it.
+When running the ant target 'package' these options are applied to the 
+production properties in the app.ini file. The project file structure is then 
+copied to and prepared with production settings to the 'dist' directory. A 
+tar ball is also created and places in this directory. Just for you to deploy.
 
-### Logging
+### Cron job to Aggregate Services
 
-Application logs is stored in ./log you might need to chmod this.
-
-### Cronjob
-
-Setup the cron job for aggregation, the example will run every 5 minute change it
-to whatever suits you best.
+Setup the cron job for aggregation. The example will run every 5 minute change 
+it to whatever suits you best.
 
 <pre>
 */5 * * * * php /path/to/phplifestream/app/jobs/aggregate.php >> /dev/null
 </pre>
 
-In production make sure that the directory where the phplifestream-conf.php is is
-in the include path for an easy way to set environment.
+In production make sure that the directory where the phplifestream-conf.php is 
+is in the include path for an easy way to set environment.
 
 <pre>
 */5 * * * * php -d include_path="/path/to/phplifestream/" /path/to/phplifestream/app/jobs/aggregate.php
 </pre>
-
-### Add Feeds
-
-Go to /services/add to add services you want to aggregate.
-
-### Webserver
-
-Point the webservers webroot to the public directory. 
-
-Refer to the Zend documentation if running another server than apache what to 
-replace the .htaccess file with.
-
-Deployment
-----------
-
-Rename the file deploy_env.properties.example into deploy_env.properties and edit
-it, properties in this file will replace production properties in the directory
-app/conf.
-
-Then run
-
-<pre>
-ant package
-</pre>
-
-The directory dist is created containing a prepared version of the application for
-your production environment based on the settings in deploy_env.properties.
-
-Changelog
----------
-Concider it unstable and to break for each commit.
-
-A full changelog is found in the file CHANGELOG.
 
 Todo
 ----
