@@ -6,7 +6,8 @@ internet.
 
 * Easy to extends with new aggregators and services
 * Aggregates any Atom and RSS feed
-* Atom and * Tags is extracted from feedsRSS support for aggregated items
+* Atom and tags is extracted from feeds
+* Atom and RSS for aggregated items
 * Admin with openid login
 * Built with Zend Framework
 
