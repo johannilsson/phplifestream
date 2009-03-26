@@ -23,6 +23,19 @@ $db = Zend_Db::factory($appConfig->db);
 Zend_Db_Table_Abstract::setDefaultAdapter($db);
 Zend_Registry::set('db', $db);
 
+// Database caching
+$frontendOptions = array(
+        'automatic_serialization' => true
+    );
+$backendOptions  = array(
+        'cache_dir' => APPLICATION_PATH . '/../tmp/',
+    );
+$cache = Zend_Cache::factory('Core',
+                             'File',
+                             $frontendOptions,
+                             $backendOptions);
+Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
+
 // TODO: Move to config
 $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/../log/app_log');
 $filter = new Zend_Log_Filter_Priority(Zend_Log::INFO);
