@@ -1,6 +1,9 @@
 # Changelog
 
 ## Next Release
+* ADD Profiler, renders page execution time and db query info in a html comment
+      block at the bottom of the page. Enable/Disable it in app.ini. 
+* ADD Caching of table meta data.
 * ADD Added feed icons for disqus and tamat.
 * CHG Centralized all configuration to app.ini. All other conf files was 
       removed.

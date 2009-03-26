@@ -12,6 +12,12 @@ db.params.password =
 db.params.dbname   = 
 
 ;
+; Enable profiler. Will display page execution time and query statistics in a 
+; html comment block at the end of the rendered page. 
+;
+profiler.enabled = false
+
+;
 ; Auth settings
 ;
 auth.identities.username1 = 

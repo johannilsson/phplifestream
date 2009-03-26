@@ -19,4 +19,9 @@ $response = new Zend_Controller_Response_Http();
 $response->setHeader('Content-Type', 'text/html; charset=UTF-8', true);  
 $frontController->setResponse($response);
 
+if (Zend_Registry::get('appConfig')->profiler->enabled) {
+    $frontController->registerPlugin(new Common_Controller_Plugin_Profiler(
+                            Zend_Registry::get('db')));
+}
+
 Zend_Controller_Front::run(APPLICATION_PATH . '/controllers');
