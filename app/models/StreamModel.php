@@ -73,7 +73,7 @@ class StreamModel
 
     public function createUniqueId($contentId, $serviceId)
     {
-        return sha1($contentId . $service->id);
+        return sha1($contentId . $serviceId);
     }
 
     public function fetchEntries($page = null)
