@@ -1,16 +1,42 @@
 <?php
+/**
+ * Common
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.
+ *
+ * @category   Common
+ * @package    Controller_Plugin
+ * @copyright  Copyright (c) 2008 Johan Nilsson. (http://www.markupartist.com)
+ * @license    New BSD License
+ */
 class Common_Controller_Plugin_Profiler extends Zend_Controller_Plugin_Abstract
 {
     private $startTime;
     private $endTime;
     private $db;
 
-    public function __construct($db) {
+    /**
+     * Will enable the database profiler and set the start time for the page
+     * execution time.
+     * @param Zend_Db_Adapter_Abstract $db
+     * @return void
+     */
+    public function __construct(Zend_Db_Adapter_Abstract $db) {
         $this->db = $db;
         $this->startTime = microtime(true);
         $this->db->getProfiler()->setEnabled(true);
     }
 
+    /**
+     * Stops the page execution timer. Will also calculate data that the db
+     * profiler has collected during the execution.
+     * 
+     * Results is echoed in a html comment block direct.
+     * @return void
+     */
     public function __destruct()
     {
         $this->endTime = microtime(true);
