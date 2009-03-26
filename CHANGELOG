@@ -1,6 +1,8 @@
 # Changelog
 
 ## Next Release
+* FIX Bug fix for undefined var in StreamModel::createUniqueId. This means 
+      that the unique id calculation has changed for all new entries.
 * ADD Profiler, renders page execution time and db query info in a html comment
       block at the bottom of the page. Enable/Disable it in app.ini. 
 * ADD Caching of table meta data.
