@@ -1,10 +1,8 @@
 # Changelog
 
 ## Next Release
-* FIX Bug fix for undefined var in StreamModel::createUniqueId. This means 
-      that the unique id calculation has changed for all new entries.
-      Im sorry for this bug, this sql will help out finding entries with wrong
-      id. SELECT * FROM streams WHERE unique_id != sha1( concat( content_unique_id, service_id ) )
+* FIX Bug fix for undefined var in StreamModel::createUniqueId removed the
+      serviceId from the calculation. In between releases this was broken.
 * ADD Profiler, renders page execution time and db query info in a html comment
       block at the bottom of the page. Enable/Disable it in app.ini. 
 * ADD Caching of table meta data.

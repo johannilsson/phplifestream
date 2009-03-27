@@ -32,8 +32,7 @@ class StreamModel
         
         if (!isset($data['unique_id'])) {
             $data['unique_id'] = $this->createUniqueId(
-                $data['content_unique_id'], 
-                $data['service_id']);
+                                          $data['content_unique_id']);
         }
 
         $entry = $db->fetchRow($db->select()->where('unique_id = ?', $data['unique_id']));
@@ -71,9 +70,9 @@ class StreamModel
         throw new Exception('Method not implemented');
     }
 
-    public function createUniqueId($contentId, $serviceId)
+    public function createUniqueId($contentId)
     {
-        return sha1($contentId . $serviceId);
+        return sha1($contentId);
     }
 
     public function fetchEntries($page = null)
