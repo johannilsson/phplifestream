@@ -26,6 +26,9 @@ class AuthController extends Zend_Controller_Action
     {
         $auth = Zend_Auth::getInstance();
 
+        $flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        $this->view->errorMessages = $flashMessenger->getMessages();
+
         if ($auth->hasIdentity()) {
             $config = Zend_Registry::get('appConfig');
             $this->_redirect($this->_helper->url->simple(
@@ -63,16 +66,22 @@ class AuthController extends Zend_Controller_Action
             $openIdAdapter = new Zend_Auth_Adapter_OpenId();
             $result = $auth->authenticate($openIdAdapter);
             $config = Zend_Registry::get('appConfig');
-            // TODO: fix proper error message for this.
+
+            $flashMessenger = $this->_helper->getHelper('FlashMessenger');
+
             if ($result->isValid() && in_array($result->getIdentity(), 
                     $config->auth->identities->toArray())) {
                 $auth->getStorage()->write($result->getIdentity());
+
+                $flashMessenger->addMessage('Welcome');
                 $this->_redirect($this->_helper->url->simple(
-                    $config->auth->login->welcome->action, 
-                    $config->auth->login->welcome->controller));
+                $config->auth->login->welcome->action, 
+                $config->auth->login->welcome->controller));
             } else {
                 $auth->clearIdentity();
-                $this->view->errorMessages = $result->getMessages(); // change to use flash
+                foreach ($result->getMessages() as $errorMessage) {
+                    $flashMessenger->addMessage($errorMessage);
+                }
                 $this->_redirect($this->_helper->url->simple('login'));
             }
         }

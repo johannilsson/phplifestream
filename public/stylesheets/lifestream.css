@@ -54,6 +54,11 @@ h1 a {
     text-decoration: none;	
 }
 
+.error-box {
+    border: 1px solid red;
+    padding: 1.6em;	
+}
+
 ul.tags {
     list-style: none;	
 }

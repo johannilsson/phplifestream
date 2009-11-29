@@ -15,6 +15,18 @@
    <div id="bd">
     <div class="yui-ge">
     <div class="yui-u first">
+        <?php if (count($this->errorMessages) > 0):?>
+        <div class="error-box">
+            <div class="error">
+                <ul>
+                <?php foreach($this->errorMessages as $message):?>
+                    <li><?= $message ?></li>
+                <?php endforeach;?>
+                </ul>
+            </div>
+        </div>
+        <?php endif;?>
+    
         <?= $this->layout()->content; ?>
     </div>
     <div class="yui-u">
